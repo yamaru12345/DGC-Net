@@ -208,7 +208,8 @@ class HomoAffTpsDataset(Dataset):
         self.df = pd.read_csv(csv_file)
 
         self.H_AFF_TPS, self.W_AFF_TPS = (480, 640)
-        self.H_HOMO, self.W_HOMO = (576, 768)
+        #self.H_HOMO, self.W_HOMO = (576, 768)
+        self.H_HOMO, self.W_HOMO = (288, 288)
         self.H_OUT, self.W_OUT = (output_size)
         self.THETA_IDENTITY = \
             torch.Tensor(np.expand_dims(np.array([[1, 0, 0],
