@@ -156,7 +156,7 @@ if __name__ == "__main__":
             for t, m, s in zip(warp_image, mean, std):
                 t.mul_(s).add_(m)
             plt.imshow((warp_image.permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8))
-            plt.show()
+            plt.savefig(f"./warp_image_epoch{epoch}.png")
             
         # Training one epoch
         train_loss = train_epoch(model,
