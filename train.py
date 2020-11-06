@@ -28,6 +28,7 @@ if __name__ == "__main__":
     # Paths
     parser.add_argument('--image-data-path', type=str, default='',
                         help='path to TokyoTimeMachine dataset and csv files')
+    parser.add_argument('--use-pretrained', action='store_true')
     parser.add_argument('--metadata-path', type=str, default='./data/',
                         help='path to the CSV files')
     parser.add_argument('--model', type=str, default='dgc',
@@ -119,6 +120,8 @@ if __name__ == "__main__":
 
     model = nn.DataParallel(model)
     model = model.to(device)
+    if use_pretrained:
+        net.load_state_dict(torch.load('data/pretrained_models/dgc/checkpoint.pth')['state_dict'])
 
     # Optimizer
     optimizer = \
