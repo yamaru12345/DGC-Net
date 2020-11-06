@@ -145,7 +145,7 @@ if __name__ == "__main__":
         scheduler.step()
         
         with torch.no_grad():
-            test_batch = next(iter(valid_dataloader))
+            test_batch = next(iter(val_dataloader))
             estimates_grid, estimates_mask = \
                    net(test_batch['source_image'].to(device),
                        test_batch['target_image'].to(device))
