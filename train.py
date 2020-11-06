@@ -206,7 +206,7 @@ if __name__ == "__main__":
                     os.remove(prev_model)
                     best_val = val_loss_grid
                     print('Saved snapshot:', cur_snapshot_name)
-                    torch.save({'state_dict': model.module.state_dict(),
+                    torch.save({'state_dict': model.state_dict(),
                                 'optimizer': optimizer.state_dict()},
                                cur_snapshot_name)
                     prev_model = cur_snapshot_name
