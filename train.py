@@ -147,8 +147,8 @@ if __name__ == "__main__":
         with torch.no_grad():
             test_batch = next(iter(val_dataloader))
             estimates_grid, estimates_mask = \
-                   net(test_batch['source_image'].to(device),
-                       test_batch['target_image'].to(device))
+                model(test_batch['source_image'].to(device),
+                      test_batch['target_image'].to(device))
             estimate_grid_for_mapping = estimate_grid[-1].squeeze().permute(1, 2, 0)
             warp_image = F.grid_sample(test_batch['source_image'].to(device), estimate_grid_for_mapping)
             mean = np.array([0.485, 0.456, 0.406])
