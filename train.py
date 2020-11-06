@@ -149,8 +149,8 @@ if __name__ == "__main__":
             estimates_grid, estimates_mask = \
                 model(test_batch['source_image'].to(device),
                       test_batch['target_image'].to(device))
-            estimate_grid_for_mapping = estimate_grid[-1].squeeze().permute(1, 2, 0)
-            warp_image = F.grid_sample(test_batch['source_image'].to(device), estimate_grid_for_mapping)
+            estimates_grid_for_mapping = estimates_grid[-1].squeeze().permute(1, 2, 0)
+            warp_image = F.grid_sample(test_batch['source_image'].to(device), estimates_grid_for_mapping)
             mean = np.array([0.485, 0.456, 0.406])
             std = np.array([0.229, 0.224, 0.225])
             for t, m, s in zip(warp_image, mean, std):
