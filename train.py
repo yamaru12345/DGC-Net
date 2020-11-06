@@ -6,6 +6,7 @@ import os
 from os import path as osp
 from termcolor import colored
 import pickle
+from matplotlib import pyplot as plt
 
 import torch
 import torch.nn as nn
@@ -13,6 +14,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 import torch.optim.lr_scheduler as lr_scheduler
+import torch.nn.functional as F
 
 from data.dataset import HomoAffTpsDataset
 from utils.loss import L1LossMasked
@@ -141,6 +143,20 @@ if __name__ == "__main__":
 
     for epoch in range(args.n_epoch):
         scheduler.step()
+        
+        with torch.no_grad():
+            test_batch = next(iter(valid_dataloader))
+            estimates_grid, estimates_mask = \
+                   net(test_batch['source_image'].to(device),
+                       test_batch['target_image'].to(device))
+            estimate_grid_for_mapping = estimate_grid[-1].squeeze().permute(1, 2, 0)
+            warp_image = F.grid_sample(test_batch['source_image'].to(device), estimate_grid_for_mapping)
+            mean = np.array([0.485, 0.456, 0.406])
+            std = np.array([0.229, 0.224, 0.225])
+            for t, m, s in zip(warp_image, mean, std):
+                t.mul_(s).add_(m)
+            plt.imshow(warp_image)
+            
         # Training one epoch
         train_loss = train_epoch(model,
                                  optimizer,
