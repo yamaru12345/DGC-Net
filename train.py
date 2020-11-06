@@ -196,7 +196,7 @@ if __name__ == "__main__":
                                          cur_snapshot,
                                          'epoch_{}.pth'.format(epoch + 1))
             if prev_model is None:
-                torch.save({'state_dict': model.module.state_dict(),
+                torch.save({'state_dict': model.state_dict(),
                             'optimizer': optimizer.state_dict()},
                            cur_snapshot_name)
                 prev_model = cur_snapshot_name
