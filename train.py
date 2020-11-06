@@ -30,7 +30,7 @@ if __name__ == "__main__":
                         help='path to the CSV files')
     parser.add_argument('--model', type=str, default='dgc',
                         help='Model to use', choices=['dgc', 'dgcm'])
-    parser.add_argument('--snapshots', type=str, default='./snapshots')
+    parser.add_argument('--snapshots', type=str, default='/content/drive/My Drive/DGC-Net/snapshots')
     parser.add_argument('--logs', type=str, default='./logs')
     # Optimization parameters
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate')
