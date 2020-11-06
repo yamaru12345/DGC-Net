@@ -36,7 +36,7 @@ if __name__ == "__main__":
     parser.add_argument('--snapshots', type=str, default='/content/drive/My Drive/DGC-Net/snapshots')
     parser.add_argument('--logs', type=str, default='./logs')
     # Optimization parameters
-    parser.add_argument('--lr', type=float, default=0.01, help='learning rate')
+    parser.add_argument('--lr', type=float, default=0.0005, help='learning rate')
     parser.add_argument('--momentum', type=float,
                         default=0.9, help='momentum constant')
     parser.add_argument('--start_epoch', type=int, default=-1,
