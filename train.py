@@ -121,7 +121,7 @@ if __name__ == "__main__":
     model = nn.DataParallel(model)
     model = model.to(device)
     if args.use_pretrained:
-        net.load_state_dict(torch.load('data/pretrained_models/dgc/checkpoint.pth')['state_dict'])
+        model.load_state_dict(torch.load('data/pretrained_models/dgc/checkpoint.pth')['state_dict'])
 
     # Optimizer
     optimizer = \
@@ -159,7 +159,7 @@ if __name__ == "__main__":
             for t, m, s in zip(warp_image, mean, std):
                 t.mul_(s).add_(m)
             plt.imshow((warp_image.permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8))
-            plt.savefig(f"./warp_image_epoch{epoch}.png")
+            plt.savefig(f"./result/warp_image_epoch{epoch}.png")
             
         # Training one epoch
         train_loss = train_epoch(model,
