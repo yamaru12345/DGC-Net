@@ -143,6 +143,10 @@ if __name__ == "__main__":
     prev_model = None
 
     train_started = time.time()
+    
+    test_batch = next(iter(val_dataloader))
+    plt.imshow((test_batch['source_image'].permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8))
+    plt.savefig(f"./result/warp_image_org.png")
 
     for epoch in range(args.n_epoch):
         scheduler.step()
