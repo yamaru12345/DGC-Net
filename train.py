@@ -118,7 +118,7 @@ if __name__ == "__main__":
     else:
         raise ValueError('check the model type [dgc, dgcm]')
 
-    model = nn.DataParallel(model)
+    #model = nn.DataParallel(model)
     model = model.to(device)
     if args.use_pretrained:
         model.load_state_dict(torch.load('data/pretrained_models/dgc/checkpoint.pth')['state_dict'])
