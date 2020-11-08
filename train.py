@@ -145,7 +145,6 @@ if __name__ == "__main__":
     train_started = time.time()
     
     test_batch = next(iter(val_dataloader))
-    print(test_batch['source_image'].shape)
     plt.imshow((test_batch['source_image'].squeeze().permute(1, 2, 0).numpy() * 255).astype(np.uint8))
     plt.savefig(f"./result/source_image.png")
     plt.imshow((test_batch['target_image'].squeeze().permute(1, 2, 0).numpy() * 255).astype(np.uint8))
