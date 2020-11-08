@@ -145,9 +145,17 @@ if __name__ == "__main__":
     train_started = time.time()
     
     test_batch = next(iter(val_dataloader))
-    plt.imshow((test_batch['source_image'].squeeze().permute(1, 2, 0).numpy() * 255).astype(np.uint8))
+    mean = np.array([0.485, 0.456, 0.406])
+    std = np.array([0.229, 0.224, 0.225])
+    source_org = test_batch['source_image'].squeeze() 
+    target_org = test_batch['target_image'].squeeze() 
+    for t, m, s in zip(source_org, mean, std):
+        t.mul_(s).add_(m)
+    for t, m, s in zip(target_org, mean, std):
+        t.mul_(s).add_(m)
+    plt.imshow((source_org.permute(1, 2, 0).numpy() * 255).astype(np.uint8))
     plt.savefig(f"./result/source_image.png")
-    plt.imshow((test_batch['target_image'].squeeze().permute(1, 2, 0).numpy() * 255).astype(np.uint8))
+    plt.imshow((target_org.permute(1, 2, 0).numpy() * 255).astype(np.uint8))
     plt.savefig(f"./result/target_image.png")
     
     for epoch in range(args.n_epoch):
@@ -160,8 +168,6 @@ if __name__ == "__main__":
                       test_batch['target_image'].to(device))
             estimates_grid_for_mapping = estimates_grid[-1].permute(0, 2, 3, 1)
             warp_image = F.grid_sample(test_batch['source_image'].to(device), estimates_grid_for_mapping).squeeze()
-            mean = np.array([0.485, 0.456, 0.406])
-            std = np.array([0.229, 0.224, 0.225])
             for t, m, s in zip(warp_image, mean, std):
                 t.mul_(s).add_(m)
             plt.imshow((warp_image.permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8))
