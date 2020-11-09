@@ -154,9 +154,9 @@ if __name__ == "__main__":
     for t, m, s in zip(target_org, mean, std):
         t.mul_(s).add_(m)
     plt.imshow((source_org.permute(1, 2, 0).numpy() * 255).astype(np.uint8))
-    plt.savefig(f"./result/source_image.png")
+    plt.savefig(f"/content/drive/My Drive/DGC-Net/result/source_image.png")
     plt.imshow((target_org.permute(1, 2, 0).numpy() * 255).astype(np.uint8))
-    plt.savefig(f"./result/target_image.png")
+    plt.savefig(f"/content/drive/My Drive/DGC-Net/result/target_image.png")
     
     for epoch in range(args.n_epoch):
         scheduler.step()
@@ -171,7 +171,7 @@ if __name__ == "__main__":
             for t, m, s in zip(warp_image, mean, std):
                 t.mul_(s).add_(m)
             plt.imshow((warp_image.permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8))
-            plt.savefig(f"./result/warp_image_epoch{epoch}.png")
+            plt.savefig(f"/content/drive/My Drive/DGC-Net/result/warp_image_epoch{epoch}.png")
             
         # Training one epoch
         train_loss = train_epoch(model,
