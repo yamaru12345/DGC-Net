@@ -121,7 +121,7 @@ if __name__ == "__main__":
     #model = nn.DataParallel(model)
     model = model.to(device)
     if args.use_pretrained:
-        model.load_state_dict(torch.load('/content/drive/My Drive/DGC-Net/snapshots/2020_11_09_08_12/epoch_6.pth')['state_dict'])
+        model.load_state_dict(torch.load('/content/drive/My Drive/DGC-Net/snapshots/2020_11_10_06_48/epoch_6.pth')['state_dict'])
 
     # Optimizer
     optimizer = \
